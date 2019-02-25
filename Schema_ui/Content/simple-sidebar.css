@@ -1,0 +1,279 @@
+/*!
+ * Start Bootstrap - Simple Sidebar (https://startbootstrap.com/template-overviews/simple-sidebar)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-simple-sidebar/blob/master/LICENSE)
+ */
+body {
+  overflow-x: hidden;
+}
+
+.sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+
+.sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+.sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper.toggled .sidebar-wrapper {
+  margin-left: 0;
+}
+
+.centered{
+  margin-left: 30%;
+}
+
+#mainboard{
+  /* border: solid 0.5px black; */
+  /* height: 100%; */
+}
+
+.btn-nav{
+  margin-left: 20px;
+}
+
+.sidebar-heading{
+  font-family: cursive;
+}
+
+span.left-span{
+  display: inline;
+}
+
+.row{
+  margin:auto;
+  margin-top: 2%;
+}
+
+#info-span span{
+  display: inline;
+  margin-left: 5%;
+}
+
+.btn-addnew{
+  border-radius: 4px;
+  background: lightgrey;
+}
+
+.draggable:hover{
+  cursor: pointer;
+}
+
+.apply{
+  text-transform: none;
+  -webkit-appearance: button;
+  padding: 1%;
+  border-radius: 2px;
+}
+
+.span{
+  display: inline;
+}
+
+#left-section span, #right-section span{
+  font-size: 11px;
+}
+
+h1 {
+  text-align: center;
+  font-family: Tahoma, Arial, sans-serif;
+  color: #06D85F;
+  margin: 80px 0;
+}
+
+.box {
+  width: 40%;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.2);
+  padding: 35px;
+  border: 2px solid #fff;
+  border-radius: 20px/50px;
+  background-clip: padding-box;
+  text-align: center;
+}
+
+.button {
+  font-size: 1em;
+  padding: 10px;
+  color: #fff;
+  border: 2px solid #06D85F;
+  border-radius: 20px/50px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+.button:hover {
+  background: #06D85F;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+#table_pop input{
+  margin-left: 1%;
+}
+
+#table_pop span{
+  margin-left: 1%;
+}
+
+#table_pop.button{
+  border-radius: 3px 5px 3px 5px;
+  background: #2980B9;
+}
+
+input{
+  border-radius: 2px;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 15px;
+  display: inline;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+/* left */ 
+
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+hr.vr{
+        width: 0px;
+    height: 16px;
+    border-left: 1px solid black;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    margin-top: 0px;
+    margin-bottom: -4px;
+}
+
+a{
+    color:black;
+}
+
+a:hover{
+    color:grey;
+}
+
+.heading{
+    font-size: 15px !important;
+    font-family: serif;
+    color: steelblue;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+@media (min-width: 768px) {
+  .sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled .sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}

@@ -1,0 +1,370 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Schema UI</title>
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    @*<link rel="stylesheet" href="~/Content/w3.css" />*@
+
+    <link rel="stylesheet" href="~/Content/custom.css" />
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    @*<script src="~/Scripts/jquery.js"></script>*@
+    <script src="~/Scripts/jsplumb.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    @*<link rel="stylesheet" href="~/Content/jquery-ui.css">*@
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    @*<script src="~/Scripts/jquery-ui.js"></script>*@
+    
+    @Styles.Render("~/Content/css")
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <h5 class="col-md-2"> App-Name </h5>
+
+        <div class="col-md-5">
+            <button class="btn btn-nav" onclick="New_Diagram()"><span class="fas fa-database">New Diagram</span></button>
+            <button class="btn btn-nav" onclick="Export_Diagram()"><span class="fas fa-download">Export Diagram</span></button>
+            <button class="btn btn-nav" onclick="Import_Diagram()"><span class="fas fa-upload">Load</span></button>
+        </div>
+
+        <div class="col-md-5">
+            <hr class="vr" />
+            <span class="left-span">Providers</span>
+            <select id="provider_select">
+                <option>Provider1</option>
+            </select>
+            <i class="fas fa-plus" onclick="New_Provider()"></i>
+            <i class="fas fa-pen" onclick="Edit_Provider()"></i>
+            <i class="fas fa-trash-alt" onclick="Del_Provider()"></i>
+            <hr class="vr" />
+
+            <input id="diagram_select" value="Provider1" disabled />
+            <button id="btn_load_diagram">Load</button>
+        </div>
+
+    </nav>
+
+    <div class="d-flex" id="wrapper">
+
+        <!-- Sidebar -->
+        <div class="bg-light border-right sidebar-wrapper" id="">
+            
+            <div class="list-group list-group-flush" id="left-section">
+                <div id="table-names">
+                    <span class="heading row">Table Names</span>
+                    <span class="row">No Tables!!!</span>
+                </div>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <span id="btn-insTbl" class="fas fa-th-large hover-click">New Table</span>
+            </nav>
+
+            <div class="container-fluid" id="mainboard">
+                <div class="row">
+                    @*<div class="db_table">
+                        <table class="w3-table w3-border" id="table1">
+                            <tr onclick='display_table_property("table1")'>
+                                <th><span>table1</span></th>
+                                <th>
+                                    <i class="fas fa-undo-alt" onclick='func_ManageRel("table1")'></i>
+                                    <i class="fas fa-trash-alt" onclick='func_removeTbl("table1")'></i>
+                                    <i class="fas fa-plus-circle" onclick='func_addColPop("table1")'></i>
+                                    <i class="fas fa-key" onclick='func_editPriKey("table1")'></i>
+                                    <i class="fas fa-minus-circle" onclick='func_deleteCol("table1")'></i>
+                                </th>
+                                <th></th>
+                            </tr>
+                            <tr class="body-row-primarykey custom-row">
+                                <td>id</td>
+                                <td>varchar</td>
+                                <td>(primary)</td>
+                            </tr>
+                            <tr class="body-row custom-row">
+                                <td>value</td>
+                                <td>varchar</td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+        <div class="bg-light border-left sidebar-wrapper" id="">
+
+            <div class="list-group list-group-flush" id="right-section">
+                <div>
+                    <span class="heading row"></span>
+                    <span class="row"></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- /#popup -->
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+
+    <div id="new_provider_pop" class="overlay">
+        <div class="popup">
+            <h2>Add New Provider</h2>
+            <a class="close" href="#">&times;</a>
+            <hr />
+
+            <div class="content">
+                <div class="row">
+                    <div class="subrow">
+                        <input type="text" placeholder="field_name" id="new_provider_name"/>
+                    </div>
+                </div>
+                <hr />
+            </div>
+
+            <div>
+                <button id="add_new_provider_ok">Save</button>
+                <button class="btn-cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit_provider_pop" class="overlay">
+        <div class="popup">
+            <h2>Add New Provider</h2>
+            <a class="close" href="#">&times;</a>
+            <hr />
+
+            <div class="content">
+                <div class="row">
+                    <div class="subrow">
+                        <input type="text" placeholder="field_name" id="edit_provider_name" />
+                    </div>
+                </div>
+                <hr />
+            </div>
+
+            <div>
+                <button id="edit_provider_ok">Save</button>
+                <button class="btn-cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="load_diagram_pop" class="overlay">
+        
+    </div>
+
+    <div id="table_pop" class="overlay">
+        
+    </div>
+
+
+    <!-- /#popup -->
+    
+    <div id="column_pop" class="overlay">
+        <div class="popup">
+            <h2>Add new column</h2>
+            <a class="close" href="#">&times;</a>
+            <hr />
+
+            <div class="content">
+                <div class="row" id="mainrow">
+                    <div class="subrow">
+                        <input type="text" placeholder="field_name" />
+                        <input type="text" placeholder="type" />
+                        <i class="fas fa-trash-alt colDelCls"></i>
+                    </div>
+                </div>
+                <div class="row">
+                    <button><span id="addOnePop" class="fas fa-plus">Add One</span></button>
+                </div>
+                <hr />
+            </div>
+
+            <div>
+                <button id="add_col_ok">Ok</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="row_pop_up" class="overlay">
+        <div class="popup">
+            <h2>Add new column</h2>
+            <a class="close" href="#">&times;</a>
+            <hr />
+
+            <div class="content" id="main_row">
+                
+                <hr />
+            </div>
+
+            <div>
+                <button id="btn-change-val">Ok</button>
+                <button id="btn-cancel">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="pop_primaryKeySettings" class="overlay">
+        <div class="popup">
+            <h2>Primary Key Settings</h2>
+            <a class="close" href="#">&times;</a>
+            <hr />
+
+            <div class="content">
+                <table id="pri_settings_tbl">
+                    <tbody>
+                        <tr class="body-row">
+                            <td>value</td>
+                            <td>varchar</td>
+                            <td><span class="fas fa-trash-alt colDelPri"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <input type="text" id="primary_value"/>
+                    <select id="primary_type">
+                        <option>INT</option>
+                        <option>VARCHAR</option>
+                        <option>TEXT</option>
+                        <option>DATE</option>
+                        <option>TINYINT</option>
+                        <option>SMALLINT</option>
+                        <option>MEDIUMINT</option>
+                        <option>BIGINT</option>
+                        <option>DECIMAL</option>
+                        <option>FLOAT</option>
+                        <option>DOUBLE</option>
+                        <option>REAL</option>
+                        <option>BIT</option>
+                        <option>BOOLEAN</option>
+                        <option>SERIAL</option>
+                        <option>DATETIME</option>
+                        <option>TIMESTAMP</option>
+                        <option>TIME</option>
+                        <option>YEAR</option>
+                        <option>CHAR</option>
+                        <option>TINYTEXT</option>
+                        <option>TEXT</option>
+                        <option>MEDIUMTEXT</option>
+                        <option>LONGTEXT</option>
+                        <option>BINARY</option>
+                        <option>VARBINARY</option>
+                        <option>TINYBLOB</option>
+                        <option>MEDIUMBLOB</option>
+                        <option>BLOB</option>
+                        <option>ENUM</option>
+                        <option>SET</option>
+                        <option>GEOMETRY</option>
+                        <option>POINT</option>
+                        <option>LINESTRING</option>
+                        <option>POLYGON</option>
+                        <option>MULTIPOINT</option>
+                        <option>MULTILINESTRING</option>
+                        <option>MULTIPOLYGON</option>
+                        <option>GEOMETRYCOLLECTION</option>
+                    </select>
+                </div>
+                <hr />
+            </div>
+
+            <div>
+                <button id="btn_priAddColOk">Add Column</button>
+                <button id="btn_priSettingOk">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="ManRel_pop" class="overlay">
+        <div class="popup">
+            <h2>Manage Table Relations</h2>
+            <a class="close" href="#">&times;</a>
+            <hr />
+
+            <div class="content">
+                <div class="row" id="rel_tbl">
+                    <table class="w3-table w3-border">
+                        <tr class="body-row-primarykey">
+                            <th>Table-Name</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+
+                        <tr class="body-row-primarykey">
+                            <td>Primary key</td>
+                            <td>Foreign key</td>
+                            <td><i class="fas fa-pencil-alt "></i></td>
+                            <td><i class="fas fa-trash-alt"></i></td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <hr />
+            </div>
+
+            <div class="row" id="NewRel_pop">
+
+            </div>
+
+            <div class="row">
+                <button id="add_newRel">New Relation</button>
+                <button class="btn-cancel" id="edit_rel_ok">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="editRel_popup" class="overlay">
+        <div class="popup">
+            <h2>Manage Table Relations</h2>
+            <a class="close" href="#">&times;</a>
+            <hr />
+
+            <div class="content" id="edit_rel_panel">
+                <div class="row">
+                    <span>value</span>
+                    <select>
+                        <option>a</option>
+                        <option>b</option>
+                    </select>
+                </div>
+                <hr />
+            </div>
+
+            <div class="row">
+                <button id="edit_RelOk">OK</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    
+    <!-- MyScript  -->
+    <script src="~/Scripts/mySqlScript.js"></script> =
+
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>
